@@ -47,7 +47,8 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h4>Deposit</h4>
-                    <input id="depositAmount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+                    <input id="depositAmount" type="text" class="form-control"
+                        placeholder="$ amount you want to deposit">
                     <br>
                     <button id="addDeposit" class="btn btn-success">Deposit</button>
                 </div>
@@ -55,7 +56,8 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h4>Withdraw</h4>
-                    <input id="withdrawAmount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                    <input id="withdrawAmount" type="text" class="form-control"
+                        placeholder="$ amount you want to withdraw">
                     <br>
                     <button id="addWithdraw" class="btn btn-success">Withdraw</button>
                 </div>
@@ -76,24 +78,29 @@
         depositBtn.addEventListener('click', function () {
             const depositNumber = getInputNumber("depositAmount");
 
-            updateSpanText("currentDeposit", depositNumber);
-            updateSpanText("currentBalance", depositNumber);
+            if (depositNumber < 0) {
+                alert("Deposit number cannot be negative");
+            }
+            else {
+                updateSpanText("currentDeposit", depositNumber);
+                updateSpanText("currentBalance", depositNumber);
 
-            document.getElementById("depositAmount").value = "";
+                document.getElementById("depositAmount").value = "";
+            }
         })
 
         // withdraw button event handler
         const withdrawBtn = document.getElementById("addWithdraw");
-        withdrawBtn.addEventListener('click', function(){
+        withdrawBtn.addEventListener('click', function () {
             const withdrawNumber = getInputNumber("withdrawAmount");
 
             updateSpanText("currentWithdraw", withdrawNumber);
             updateSpanText("currentBalance", -1 * withdrawNumber);
-            
+
             document.getElementById("withdrawAmount").value = "";
         })
 
-        function getInputNumber(id){
+        function getInputNumber(id) {
             const amount = document.getElementById(id).value;
             const amountNumber = parseFloat(amount);
             return amountNumber;
